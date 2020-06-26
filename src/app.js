@@ -15,17 +15,26 @@ const io = socketio(server)
 
 io.on('connection', socket => {
     socket.on('join', ({room, username}) => {
-        addUser({username, room, id: socket.id})
-        socket.emit('message', createMessage(`Welcome to \'${room}\' ${username}!`))
+        const {user, error} = addUser({username, room, id: socket.id})
+        if (error) {
+            return console.log(error)
+        }
+        socket.join(room)
+        io.to(room).emit('update-user-count', ({ room, number_of_users: getUsersInRoom(room).length }))
+        socket.emit('message', createMessage(`Welcome to ${username}!`))
         socket.broadcast.to(room).emit('message', createMessage(`${username} joined the room`))
     })
 
     socket.on('message-sent', (text, {room, username}) => {
-        socket.emit('message-recieved', createMessage(text, 'me'))
-        socket.broadcast.to(room).emit('message-recieved', createMessage(text,username))
+        socket.emit('message', createMessage(text, 'me'))
+        socket.broadcast.to(room).emit('message', createMessage(text,username))
     })
 
     socket.on('disconnect', () => {
+        const user = getUserById(socket.id)
+        const room = removeUser(user).room
+        io.to(room).emit('update-user-count', ({ room, number_of_users: getUsersInRoom(room).length }))
+        io.to(room).emit('message', createMessage(`${user.username} left the room.`))
 
     })
 })
