@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <h1>Chat Room</h1>
+
+        <div id="messages"></div>
+
+        <div class="block">
+            <form class="from-block" id="message-form">
+                <input id="user-input" placeholder="message" autofocus="on" autocomplete="off" required>
+                <button>send</button>
+            </form>
+        </div>
+
+        <script type="text/html" id="message-template">
+            <div> 
+                <p class="message-info" id="user" style={{username_style}}>{{username}} - </p>
+                <p class="message-info" id="text" style={{text_style}}>{{text}}</p>
+                <p class="message-info" id="time-stamp">{{time_stamp}}</p>
+            <div>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/client.js"></script>
+        
+    </body>
+</html>
