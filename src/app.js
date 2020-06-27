@@ -17,11 +17,11 @@ io.on('connection', socket => {
     socket.on('join', ({room, username}) => {
         const {user, error} = addUser({username, room, id: socket.id})
         if (error) {
-            return console.log(error)
+            return socket.emit('update-user-count', {error})
         }
         socket.join(room)
-        io.to(room).emit('update-user-count', ({ room, number_of_users: getUsersInRoom(room).length }))
-        socket.emit('message', createMessage(`Welcome to ${username}!`))
+        io.to(room).emit('update-user-count', ({ room, number_of_users: getUsersInRoom(room).length}))
+        socket.emit('message', createMessage(`Welcome to ${room}!`))
         socket.broadcast.to(room).emit('message', createMessage(`${username} joined the room`))
     })
 

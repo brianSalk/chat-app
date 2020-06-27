@@ -8,7 +8,7 @@ const addUser = ({username, room, id}) => {
         return {error: "please enter a valid room and username"}
     }
     if (getUsersInRoom(room).findIndex(user => user.username === username) !== -1) {
-        return {error: 'that username is already taken!'}
+        return {error: 'that username is already taken, please select a different username'}
     }
     const user = {
         username,

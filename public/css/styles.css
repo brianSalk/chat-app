@@ -41,3 +41,8 @@ h1 {
     overflow-y: scroll;
     word-wrap: break-word;
 }
+#back-form {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
