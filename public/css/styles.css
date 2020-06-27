@@ -46,3 +46,6 @@ h1 {
     bottom: 10px;
     left: 10px;
 }
+#room-count {
+    font-size: 15px;
+}

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "supervisor -e js,html,css -n success src/app.js"
+    "dev": "supervisor -e js,html,css -n success src/app.js",
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "",
